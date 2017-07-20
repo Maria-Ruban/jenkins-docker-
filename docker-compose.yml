@@ -1,0 +1,21 @@
+version: '3'
+services:
+  app-service:
+    container_name: app
+    build: ./config/webapp
+    ports:
+      - "80:80"
+    volumes:
+      - ./public_html:/var/www/html
+    links:
+      - mysql-service
+  mysql-service:
+    container_name: mysql
+    image: mysql:latest
+    ports: 
+      - "3306:3306"
+    volumes:
+      - /var/lib/mysql:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=drupal7
